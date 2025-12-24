@@ -77,3 +77,19 @@ from
   bookings as b
   join users as u on b.user_id = u.user_id
   join vehicles as v on b.vehicle_id = v.vehicle_id;
+
+-- Retrieve all vehicles that are currently not booked.
+  select 
+    v.vehicle_id,
+    v.name,
+    v.type,
+    v.model,
+    v.registration_number,
+    v.rental_price,
+    v.status
+from vehicles v
+where not exists (
+    select 1
+    from bookings b
+    where b.vehicle_id = v.vehicle_id
+);
