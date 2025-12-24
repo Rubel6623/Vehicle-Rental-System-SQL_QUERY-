@@ -1,4 +1,4 @@
-create database Vehicle;
+-- create database Vehicle;
 
 -- create Users Table
 create table
@@ -87,10 +87,10 @@ from
     v.registration_number,
     v.rental_price,
     v.status
-from vehicles v
+from vehicles as v
 where not exists (
     select 1
-    from bookings b
+    from bookings as b
     where b.vehicle_id = v.vehicle_id
 );
 
@@ -105,3 +105,14 @@ select
     status
 from vehicles
 where type = 'car' and status = 'available';
+
+
+-- Find the total number of bookings for each vehicle and display only those vehicles that have more than 2 bookings.
+select 
+    v.name as vehicle_name,
+    count(b.booking_id) as total_bookings
+from vehicles as v
+inner join bookings as b
+    on b.vehicle_id = v.vehicle_id
+group by v.name
+having count(b.booking_id) > 2;
