@@ -93,3 +93,15 @@ where not exists (
     from bookings b
     where b.vehicle_id = v.vehicle_id
 );
+
+-- Retrieve all available vehicles of a specific type
+select 
+    vehicle_id,
+    name,
+    type,
+    model,
+    registration_number,
+    rental_price,
+    status
+from vehicles
+where type = 'car' and status = 'available';
